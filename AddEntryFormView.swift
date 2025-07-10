@@ -2,17 +2,16 @@ import SwiftUI
 import PhotosUI
 
 struct AddEntryFormView: View {
-    @Environment(\.dismiss) var dismiss // For dismissing the sheet
+    @Environment(\.dismiss) var dismiss  
 
     @State private var newEntryProjectName: String = ""
     @State private var newEntryHours: Double = 0.0
-    @State private var newEntryDate: Date = Date() // Defaults to current date
+    @State private var newEntryDate: Date = Date()  
     @State private var newEntryDescription: String = ""
     @State private var isImagePickerPresented: Bool = false
     @State private var selectedImageData: Data? = nil
 
-    // Closure to pass the new entry back to HomeScreen
-    var onAddEntry: (VolunteerEntry) -> Void
+     var onAddEntry: (VolunteerEntry) -> Void
 
     var body: some View {
         NavigationView {
