@@ -13,21 +13,20 @@ struct EntryDetailView: View {
                 .font(.headline)
                 .foregroundColor(.gray)
             
-            Text("Description of Work:") // <--- ADD THIS LABEL
+            Text("Description of Work:")  
                             .font(.headline)
                             .padding(.top, 5)
 
-                        Text(entry.description.isEmpty ? "No description provided." : entry.description) // <--- ADD THIS TEXT
+                        Text(entry.description.isEmpty ? "No description provided." : entry.description)  
                             .font(.body)
                             .foregroundColor(.primary)
-                            .multilineTextAlignment(.leading) // Ensure text aligns left
-                            .lineLimit(nil) // Allow unlimited lines
-                            .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
+                            .multilineTextAlignment(.leading)  
+                            .lineLimit(nil)  
+                            .fixedSize(horizontal: false, vertical: true)  
 
 
 
-            // Display the date of the entry
-            Text("Date: \(entry.date, formatter: Self.entryDateFormatter)")
+             Text("Date: \(entry.date, formatter: Self.entryDateFormatter)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
 
@@ -51,17 +50,16 @@ struct EntryDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    // Date Formatter for consistent display
-    static let entryDateFormatter: DateFormatter = {
+     static let entryDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long // Example: "July 9, 2025"
-        formatter.timeStyle = .none // No time needed
+        formatter.dateStyle = .long  
+        formatter.timeStyle = .none  
         return formatter
     }()
 }
 
 struct EntryDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        EntryDetailView(entry: VolunteerEntry(projectName: "Sample Project", hours: 15.5, photoData: nil, date: Date(),description: "This is a sample description of the work performed during this volunteer activity. It can be multiple lines long."))
+        EntryDetailView(entry: VolunteerEntry(projectName: "Sample Project", hours: 15.5, photoData: nil, date: Date(),description: "Blah blah description"))
     }
 }
