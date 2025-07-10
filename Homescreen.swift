@@ -1,11 +1,10 @@
 import SwiftUI
-import PhotosUI // Still needed for UIImage and other types
-
+import PhotosUI 
 struct HomeScreen: View {
     @State private var totalHours: Double = 0
     @State private var entries: [VolunteerEntry] = []
 
-    @State private var isShowingAddEntryForm: Bool = false // Controls the sheet presentation
+    @State private var isShowingAddEntryForm: Bool = false  
 
     var body: some View {
         NavigationView {
@@ -14,8 +13,7 @@ struct HomeScreen: View {
                     .font(.system(size: 32, weight: .semibold))
                     .padding(.top)
                 VStack(spacing: 16) {
-                    // Circle with total hours display
-                    ZStack {
+                     ZStack {
                         Circle()
                             .fill(Color.purple.opacity(0.2))
                             .frame(width: 150, height: 150)
@@ -31,41 +29,36 @@ struct HomeScreen: View {
                     .padding(.bottom)
 
 
-                    // NEW: Combined HStack for "Add New Entry" and "Reset All Entries" buttons
-                    HStack(spacing: 15) { // Added spacing between the buttons
-                        Spacer() // Pushes buttons towards the center/right
+                     HStack(spacing: 15) {  
+                        Spacer()  
 
-                        // Add New Entry Button
-                        Button("Add New Entry") {
+                         Button("Add New Entry") {
                             isShowingAddEntryForm = true
                         }
                         .padding(.vertical, 12)
-                        .padding(.horizontal, 20) // Slightly less horizontal padding for better fit
+                        .padding(.horizontal, 20)  
                         .background(Color.green.opacity(0.7))
                         .foregroundColor(.white)
                         .font(.headline)
                         .cornerRadius(15)
 
-                        // Reset All Entries Button
-                        Button("Reset All Entries") {
+                         Button("Reset All Entries") {
                             resetAllEntries()
                         }
                         .padding(.vertical, 12)
-                        .padding(.horizontal, 25) // Consistent padding
+                        .padding(.horizontal, 25) 
                         .background(Color.red.opacity(0.7))
                         .foregroundColor(.white)
-                        .font(.headline) // Make font consistent
+                        .font(.headline)  
                         .cornerRadius(15)
 
-                        Spacer() // Pushes buttons towards the center/left
+                        Spacer()  
                     }
-                    .padding(.bottom, 20) // Space below the button row
+                    .padding(.bottom, 20) 
 
-                    // List of entries
-                    List {
+                     List {
                         ForEach(entries) { entry in
-                            // NavigationLink wraps the row content to make it tappable
-                            NavigationLink(destination: EntryDetailView(entry: entry)) {
+                             NavigationLink(destination: EntryDetailView(entry: entry)) {
                                 HStack {
                                     Text(entry.projectName)
                                     Spacer()
@@ -77,33 +70,30 @@ struct HomeScreen: View {
                                             .frame(width: 50, height: 50)
                                     }
                                 }
-                                .padding() // Padding inside the background
-                                .background(Color.purple.opacity(0.1)) // Light blue background for each entry
-                                .cornerRadius(8) // Rounded corners for the background
+                                .padding()  
+                                .background(Color.purple.opacity(0.1))  
+                                .cornerRadius(8) 
                             }
-                            .listRowSeparator(.hidden) // Hides default list separators
-                            .listRowBackground(Color.clear) // Ensures custom background shows
-                            .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 5)) // Spacing between rows
+                            .listRowSeparator(.hidden)  
+                            .listRowBackground(Color.clear)  
+                            .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 5))  
                         }
-                        .onDelete(perform: deleteEntry) // Swipe-to-delete functionality
+                        .onDelete(perform: deleteEntry)  
                     }
-                    .listStyle(.plain) // Clean list style
-                    // Workaround for List in ScrollView: dynamically set height
-                    .frame(height: max(CGFloat(entries.count) * 400, 0)) // 70 is an approximate row height
+                    .listStyle(.plain)  
+                     .frame(height: max(CGFloat(entries.count) * 400, 0))  
 
-                    Spacer(minLength: 0) // Ensures content is pushed to the top
+                    Spacer(minLength: 0) 
                 }
             }
             
         }
         .onAppear {
-            loadEntries() // Load saved entries when the view appears
+            loadEntries()  
         }
-        // Sheet for presenting the AddEntryFormView
-        .sheet(isPresented: $isShowingAddEntryForm) {
+         .sheet(isPresented: $isShowingAddEntryForm) {
             AddEntryFormView { newEntry in
-                // This closure executes when "Save Entry" is tapped in the form
-                entries.append(newEntry)
+                 entries.append(newEntry)
                 saveEntries()
                 totalHours = calculateTotalHours()
             }
